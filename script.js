@@ -14,7 +14,8 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
 
     // Si se ingresa el número de colada, buscar el archivo PDF específico
     if (batchNumber) {
-        const pdfFileName = `pdfs/${materialCode}_${batchNumber}.pdf`;
+        // Ajusta la ruta para que sea relativa a la carpeta raíz del repositorio
+        const pdfFileName = `./pdfs/${materialCode}_${batchNumber}.pdf`;
         fetch(pdfFileName)
             .then(response => {
                 if (response.ok) {
@@ -37,33 +38,26 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
 function fetchColadas(materialCode) {
     const resultDiv = document.getElementById('result');
 
-    // Simulación: búsqueda de archivos PDF en la carpeta 'pdfs'
-    fetch('pdfs/')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('No se pudo acceder a la carpeta de PDFs');
-            }
-            return response.text();
-        })
-        .then(data => {
-            // Suponiendo que la respuesta contiene una lista de archivos en la carpeta
-            const regex = new RegExp(`${materialCode}_[^/]+\.pdf`, 'g');
-            const coladasEncontradas = data.match(regex) || [];
+    // Ajusta la ruta de la carpeta de PDFs
+    const pdfFolderPath = './pdfs/';
 
-            if (coladasEncontradas.length > 0) {
-                resultDiv.innerHTML = '<p>Coladas disponibles para el material ' + materialCode + ':</p><ol>';
-                coladasEncontradas.forEach((colada, index) => {
-                    // Extrae solo el número de colada del nombre del archivo
-                    const coladaName = colada.split('_')[1].replace('.pdf', '').replace(/\".*$/, ''); // Eliminar cualquier texto adicional no deseado
-                    resultDiv.innerHTML += `<li>${coladaName}</li>`;
-                });
-                resultDiv.innerHTML += '</ol>';
-            } else {
-                resultDiv.innerHTML = `<p>No se encontraron coladas para el código de material: ${materialCode}</p>`;
-            }
-        })
-        .catch(error => {
-            console.error('Error al buscar coladas:', error);
-            resultDiv.innerHTML = `<p>Ocurrió un error al buscar las coladas. Por favor, inténtalo de nuevo más tarde.</p>`;
+    // Simulación: lista de archivos PDF disponibles (reemplazar con una solicitud real si es posible)
+    const simulatedFiles = [
+        "12345678901_ABC123.pdf",
+        "12345678901_DEF456.pdf",
+        "12345678901_GHI789.pdf"
+    ];
+
+    const coladasEncontradas = simulatedFiles.filter(file => file.startsWith(materialCode));
+
+    if (coladasEncontradas.length > 0) {
+        resultDiv.innerHTML = '<p>Coladas disponibles para el material ' + materialCode + ':</p><ol>';
+        coladasEncontradas.forEach((colada, index) => {
+            const coladaName = colada.split('_')[1].replace('.pdf', '');
+            resultDiv.innerHTML += `<li>${coladaName}</li>`;
         });
+        resultDiv.innerHTML += '</ol>';
+    } else {
+        resultDiv.innerHTML = `<p>No se encontraron coladas para el código de material: ${materialCode}</p>`;
+    }
 }
