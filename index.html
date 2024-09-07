@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificados de Calidad</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Certificados de Calidad</h1>
+        <form id="searchForm">
+            <label for="materialCode">Código de Material:</label>
+            <input type="text" id="materialCode" name="materialCode" required>
+            
+            <label for="batchNumber">Número de Colada (opcional):</label>
+            <input type="text" id="batchNumber" name="batchNumber">
+            
+            <button type="submit">Obtener Certificado</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
