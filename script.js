@@ -14,8 +14,8 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
 
     // Si se ingresa el número de colada, buscar el archivo PDF específico
     if (batchNumber) {
-        // Ajusta la ruta para que sea relativa a la carpeta raíz del repositorio
-        const pdfFileName = `./pdfs/${materialCode}_${batchNumber}.pdf`;
+        // Ajusta la ruta para que sea relativa al contexto de GitHub Pages
+        const pdfFileName = `https://esacnhezandres.github.io/CertificadosQ/pdfs/${materialCode}_${batchNumber}.pdf`;
         fetch(pdfFileName)
             .then(response => {
                 if (response.ok) {
@@ -39,7 +39,7 @@ function fetchColadas(materialCode) {
     const resultDiv = document.getElementById('result');
 
     // Ajusta la ruta de la carpeta de PDFs
-    const pdfFolderPath = './pdfs/';
+    const pdfFolderPath = 'https://esacnhezandres.github.io/CertificadosQ/pdfs/';
 
     // Simulación: lista de archivos PDF disponibles (reemplazar con una solicitud real si es posible)
     const simulatedFiles = [
