@@ -14,7 +14,6 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
 
     // Si se ingresa el número de colada, buscar el archivo PDF específico
     if (batchNumber) {
-        // Ajusta la ruta para que sea relativa al contexto de GitHub Pages
         const pdfFileName = `https://esacnhezandres.github.io/CertificadosQ/pdfs/${materialCode}_${batchNumber}.pdf`;
         fetch(pdfFileName)
             .then(response => {
@@ -38,26 +37,29 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
 function fetchColadas(materialCode) {
     const resultDiv = document.getElementById('result');
 
-    // Ajusta la ruta de la carpeta de PDFs
-    const pdfFolderPath = 'https://esacnhezandres.github.io/CertificadosQ/pdfs/';
+    // Ruta al archivo JSON que contiene la lista de archivos PDF
+    const jsonUrl = 'https://esacnhezandres.github.io/CertificadosQ/pdfs.json';
 
-    // Simulación: lista de archivos PDF disponibles (reemplazar con una solicitud real si es posible)
-    const simulatedFiles = [
-        "12345678901_ABC123.pdf",
-        "12345678901_DEF456.pdf",
-        "12345678901_GHI789.pdf"
-    ];
+    fetch(jsonUrl)
+        .then(response => response.json())
+        .then(data => {
+            // Filtrar los archivos que pertenecen al código de material ingresado
+            const regex = new RegExp(`${materialCode}_[^/]+\.pdf`, 'g');
+            const coladasEncontradas = data.filter(file => file.match(regex));
 
-    const coladasEncontradas = simulatedFiles.filter(file => file.startsWith(materialCode));
-
-    if (coladasEncontradas.length > 0) {
-        resultDiv.innerHTML = '<p>Coladas disponibles para el material ' + materialCode + ':</p><ol>';
-        coladasEncontradas.forEach((colada, index) => {
-            const coladaName = colada.split('_')[1].replace('.pdf', '');
-            resultDiv.innerHTML += `<li>${coladaName}</li>`;
+            if (coladasEncontradas.length > 0) {
+                resultDiv.innerHTML = '<p>Coladas disponibles para el material ' + materialCode + ':</p><ol>';
+                coladasEncontradas.forEach((colada, index) => {
+                    const coladaName = colada.split('_')[1].replace('.pdf', '');
+                    resultDiv.innerHTML += `<li>${coladaName}</li>`;
+                });
+                resultDiv.innerHTML += '</ol>';
+            } else {
+                resultDiv.innerHTML = `<p>No se encontraron coladas para el código de material: ${materialCode}</p>`;
+            }
+        })
+        .catch(error => {
+            console.error('Error al buscar coladas:', error);
+            resultDiv.innerHTML = `<p>Ocurrió un error al buscar las coladas. Por favor, inténtalo de nuevo más tarde.</p>`;
         });
-        resultDiv.innerHTML += '</ol>';
-    } else {
-        resultDiv.innerHTML = `<p>No se encontraron coladas para el código de material: ${materialCode}</p>`;
-    }
 }
