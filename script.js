@@ -4,7 +4,8 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
     const materialCode = document.getElementById('materialCode').value;
     const batchNumber = document.getElementById('batchNumber').value;
 
-    // Verifica que el código del material tenga 11 dígitos
+    console.log(`Buscando: Material - ${materialCode}, Colada - ${batchNumber}`);
+
     if (materialCode.length !== 11) {
         alert('El código de material debe tener 11 dígitos.');
         return;
@@ -12,9 +13,9 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
 
     const resultDiv = document.getElementById('result');
 
-    // Si se ingresa el número de colada, buscar el archivo PDF específico
     if (batchNumber) {
-        const pdfFileName = `https://esacnhezandres.github.io/CertificadosQ/pdfs/${materialCode}_${batchNumber}.pdf`;
+        const pdfFileName = `https://esacnhezandres.github.io/CertificadosQ/PDFS/${materialCode}_${batchNumber}.pdf`;
+        console.log(`Buscando archivo específico: ${pdfFileName}`);
         fetch(pdfFileName)
             .then(response => {
                 if (response.ok) {
@@ -28,22 +29,20 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
                 resultDiv.innerHTML = `<p>Ocurrió un error al buscar el certificado. Por favor, inténtalo de nuevo más tarde.</p>`;
             });
     } else {
-        // Si no se ingresa el número de colada, buscar todas las coladas disponibles para ese material
         fetchColadas(materialCode);
     }
 });
 
-// Función para buscar todas las coladas disponibles para un código de material
 function fetchColadas(materialCode) {
     const resultDiv = document.getElementById('result');
+    const jsonUrl = 'https://esacnhezandres.github.io/CertificadosQ/PDFS/pdfs.json'; // URL correcta del archivo JSON
 
-    // Ruta al archivo JSON que contiene la lista de archivos PDF
-    const jsonUrl = 'https://esacnhezandres.github.io/CertificadosQ/pdfs.json';
+    console.log(`Cargando datos desde JSON: ${jsonUrl}`);
 
     fetch(jsonUrl)
         .then(response => response.json())
         .then(data => {
-            // Filtrar los archivos que pertenecen al código de material ingresado
+            console.log('Datos cargados:', data);
             const regex = new RegExp(`${materialCode}_[^/]+\.pdf`, 'g');
             const coladasEncontradas = data.filter(file => file.match(regex));
 
