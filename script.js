@@ -19,41 +19,40 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
     // URL base de la carpeta en SharePoint
     const baseUrl = 'https://nealandmassyltd.sharepoint.com/sites/ProyectoEcopetrol/GOR/08_Certificados_de_Calidad/PDFS/';
 
-    if (batchNumber) {
-        // Si se ingresa un número de colada, construir el nombre del archivo
-        const pdfUrl = `${baseUrl}${materialCode}_${batchNumber}.pdf`;
+    // Simulación de archivos disponibles en SharePoint
+    const archivosDisponibles = [
+        '71005068879_74860-09.pdf',
+        '71500055363_369542.pdf',
+        '71500055363_231738.pdf',
+        '71005068879_C125.pdf',
+        '71500161487_236532.pdf',
+        // Agrega más ejemplos según sea necesario
+    ];
 
-        // Mostrar el enlace al PDF
-        resultDiv.innerHTML = `<a href="${pdfUrl}" target="_blank">Descargar Certificado PDF (${batchNumber})</a>`;
-    } else {
-        // Si no se ingresa un número de colada, buscar todas las coladas disponibles
-        resultDiv.innerHTML = `<p>Buscando todas las coladas para el material ${materialCode}...</p>`;
+    // Si el usuario ingresa un comodín "*"
+    if (batchNumber === '*') {
+        const archivosCoincidentes = archivosDisponibles.filter(archivo => archivo.startsWith(materialCode));
 
-        // Supongamos que la lista de archivos en SharePoint está disponible en un array simulado
-        const archivosDisponibles = [
-            '71005068879_74860-09.pdf',
-            '71500055363_369542.pdf',
-            '71500055363_231738.pdf',
-            '71005068879_C125.pdf',
-            '71500161487_236532.pdf',
-            // Aquí puedes agregar más ejemplos si lo deseas
-        ];
+        if (archivosCoincidentes.length > 0) {
+            resultDiv.innerHTML = `<p>Archivos disponibles para el material ${materialCode}:</p><ul>`;
 
-        // Filtrar los archivos que coincidan con el código de material
-        const coladasEncontradas = archivosDisponibles.filter(archivo => archivo.startsWith(materialCode));
-
-        if (coladasEncontradas.length > 0) {
-            resultDiv.innerHTML = `<p>Coladas disponibles para el material ${materialCode}:</p><ul>`;
-
-            coladasEncontradas.forEach(archivo => {
-                const colada = archivo.split('_')[1].replace('.pdf', ''); // Extraer la colada
+            archivosCoincidentes.forEach(archivo => {
+                const colada = archivo.substring(11).replace('.pdf', ''); // Extraer colada
                 const pdfUrl = `${baseUrl}${archivo}`;
                 resultDiv.innerHTML += `<li><a href="${pdfUrl}" target="_blank">Descargar Certificado PDF (Colada: ${colada})</a></li>`;
             });
 
             resultDiv.innerHTML += '</ul>';
         } else {
-            resultDiv.innerHTML = `<p>No se encontraron coladas disponibles para el material ${materialCode}.</p>`;
+            resultDiv.innerHTML = `<p>No se encontraron archivos disponibles para el material ${materialCode}.</p>`;
         }
+    } else if (batchNumber) {
+        // Si el usuario ingresa un número de colada específico
+        const pdfUrl = `${baseUrl}${materialCode}_${batchNumber}.pdf`;
+
+        // Mostrar el enlace al PDF
+        resultDiv.innerHTML = `<a href="${pdfUrl}" target="_blank">Descargar Certificado PDF (${batchNumber})</a>`;
+    } else {
+        resultDiv.innerHTML = `<p>Por favor, ingresa un número de colada o utiliza el comodín "*".</p>`;
     }
 });
