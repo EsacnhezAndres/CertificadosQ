@@ -14,7 +14,7 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
     const resultDiv = document.getElementById('result');
 
     // Cargar el archivo JSON con las URLs de los PDF en SharePoint
-    fetch('https://nealandmassyltd.sharepoint.com/sites/ProyectoEcopetrol/GOR/08_Certificados_de_Calidad/PDFS/pdfs.json')
+    fetch('https://nealandmassyltd.sharepoint.com/sites/ProyectoEcopetrol/GOR/_layouts/15/download.aspx?UniqueId=9edf19c46cef4d7eab171126518b7653&e=exzFAz')
         .then(response => response.json())
         .then(data => {
             // Buscar el PDF que coincida con el código de material y número de colada
@@ -36,7 +36,7 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
 
 function fetchColadas(materialCode) {
     const resultDiv = document.getElementById('result');
-    const jsonUrl = 'https://nealandmassyltd.sharepoint.com/sites/ProyectoEcopetrol/GOR/08_Certificados_de_Calidad/PDFS/pdfs.json'; // URL correcta del archivo JSON en SharePoint
+    const jsonUrl = 'https://nealandmassyltd.sharepoint.com/sites/ProyectoEcopetrol/GOR/_layouts/15/download.aspx?UniqueId=9edf19c46cef4d7eab171126518b7653&e=exzFAz'; // URL correcta del archivo JSON en SharePoint
 
     console.log(`Cargando datos desde JSON: ${jsonUrl}`);
 
