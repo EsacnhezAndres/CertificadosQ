@@ -37,7 +37,7 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
                 resultDiv.innerHTML = `<p>Ocurrió un error al buscar el certificado. Por favor, inténtalo de nuevo más tarde.</p>`;
             });
     } else {
-        // Si no se ingresa un número de colada, mostrar un mensaje
+        // Si no se ingresa un número de colada, pedir al usuario que ingrese uno
         resultDiv.innerHTML = `<p>Por favor, ingresa un número de colada para obtener el certificado.</p>`;
     }
 });
