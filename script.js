@@ -13,38 +13,28 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
 
     const resultDiv = document.getElementById('result');
 
-    // Cargar el archivo JSON con las URLs de los PDF en GitHub
-    fetch('https://esacnhezandres.github.io/CertificadosQ/pdfs.json')
-        .then(response => response.json())
-        .then(data => {
-            if (batchNumber) {
-                // Si se ingresa el número de colada, buscar el PDF específico
-                const foundPDF = data.find(pdf => pdf.material === materialCode && pdf.colada === batchNumber);
-                
-                if (foundPDF) {
-                    // Mostrar enlace al PDF encontrado
-                    resultDiv.innerHTML = `<a href="${foundPDF.url}" target="_blank">Descargar Certificado PDF (${foundPDF.colada})</a>`;
+    // URL base de la carpeta en SharePoint
+    const baseUrl = 'https://nealandmassyltd.sharepoint.com/sites/ProyectoEcopetrol/GOR/08_Certificados_de_Calidad/PDFS/';
+
+    if (batchNumber) {
+        // Si se ingresa un número de colada, construir el nombre del archivo
+        const pdfUrl = `${baseUrl}${materialCode}_${batchNumber}.pdf`;
+
+        // Verificar si el archivo existe y mostrar el enlace
+        fetch(pdfUrl, { method: 'HEAD' })
+            .then(response => {
+                if (response.ok) {
+                    resultDiv.innerHTML = `<a href="${pdfUrl}" target="_blank">Descargar Certificado PDF (${batchNumber})</a>`;
                 } else {
-                    // Mostrar mensaje si no se encuentra el PDF
                     resultDiv.innerHTML = `<p>No se encontró el certificado para el material ingresado: ${materialCode} y la colada: ${batchNumber}</p>`;
                 }
-            } else {
-                // Si no se ingresa la colada, buscar todas las coladas disponibles para el material
-                const coladasEncontradas = data.filter(pdf => pdf.material === materialCode);
-                
-                if (coladasEncontradas.length > 0) {
-                    resultDiv.innerHTML = '<p>Coladas disponibles para el material ' + materialCode + ':</p><ol>';
-                    coladasEncontradas.forEach((pdf, index) => {
-                        resultDiv.innerHTML += `<li><a href="${pdf.url}" target="_blank">Descargar Certificado PDF (${pdf.colada})</a></li>`;
-                    });
-                    resultDiv.innerHTML += '</ol>';
-                } else {
-                    resultDiv.innerHTML = `<p>No se encontraron coladas para el código de material: ${materialCode}</p>`;
-                }
-            }
-        })
-        .catch(error => {
-            console.error('Error al cargar el archivo JSON:', error);
-            resultDiv.innerHTML = `<p>Ocurrió un error al buscar los certificados. Por favor, inténtalo de nuevo más tarde.</p>`;
-        });
+            })
+            .catch(error => {
+                console.error('Error al buscar el archivo PDF:', error);
+                resultDiv.innerHTML = `<p>Ocurrió un error al buscar el certificado. Por favor, inténtalo de nuevo más tarde.</p>`;
+            });
+    } else {
+        // Si no se ingresa un número de colada, buscar todos los PDFs para el material
+        resultDiv.innerHTML = `<p>No se encontró un archivo JSON y no se puede generar la lista de coladas automáticamente.</p>`;
+    }
 });
