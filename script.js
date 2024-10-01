@@ -26,24 +26,34 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
         // Mostrar el enlace al PDF
         resultDiv.innerHTML = `<a href="${pdfUrl}" target="_blank">Descargar Certificado PDF (${batchNumber})</a>`;
     } else {
-        // Si no se ingresa un número de colada, generar una lista de posibles coladas
-        resultDiv.innerHTML = `<p>Buscando posibles coladas para el material ${materialCode}...</p>`;
+        // Si no se ingresa un número de colada, buscar todas las coladas disponibles
+        resultDiv.innerHTML = `<p>Buscando todas las coladas para el material ${materialCode}...</p>`;
 
-        // Supongamos que las coladas tienen diferentes patrones (números, letras, guiones, etc.)
-        const patronesColada = [
-            'C125',  // Ejemplo con solo letras y números
-            'C123-09',  // Ejemplo con guión
-            'ABC_123',  // Ejemplo con guión bajo
-            'XYZ_456-789',  // Ejemplo más complejo
-            '123_ABC-DEF',  // Otro ejemplo
-            // Puedes agregar más ejemplos aquí según los patrones que observes
+        // Supongamos que la lista de archivos en SharePoint está disponible en un array simulado
+        const archivosDisponibles = [
+            '71005068879_74860-09.pdf',
+            '71500055363_369542.pdf',
+            '71500055363_231738.pdf',
+            '71005068879_C125.pdf',
+            '71500161487_236532.pdf',
+            // Aquí puedes agregar más ejemplos si lo deseas
         ];
 
-        resultDiv.innerHTML = `<p>Posibles coladas para el material ${materialCode}:</p><ul>`;
-        patronesColada.forEach(colada => {
-            const pdfUrl = `${baseUrl}${materialCode}_${colada}.pdf`;
-            resultDiv.innerHTML += `<li><a href="${pdfUrl}" target="_blank">Descargar Certificado PDF (Colada: ${colada})</a></li>`;
-        });
-        resultDiv.innerHTML += '</ul>';
+        // Filtrar los archivos que coincidan con el código de material
+        const coladasEncontradas = archivosDisponibles.filter(archivo => archivo.startsWith(materialCode));
+
+        if (coladasEncontradas.length > 0) {
+            resultDiv.innerHTML = `<p>Coladas disponibles para el material ${materialCode}:</p><ul>`;
+
+            coladasEncontradas.forEach(archivo => {
+                const colada = archivo.split('_')[1].replace('.pdf', ''); // Extraer la colada
+                const pdfUrl = `${baseUrl}${archivo}`;
+                resultDiv.innerHTML += `<li><a href="${pdfUrl}" target="_blank">Descargar Certificado PDF (Colada: ${colada})</a></li>`;
+            });
+
+            resultDiv.innerHTML += '</ul>';
+        } else {
+            resultDiv.innerHTML = `<p>No se encontraron coladas disponibles para el material ${materialCode}.</p>`;
+        }
     }
 });
