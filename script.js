@@ -6,8 +6,11 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
 
     console.log(`Buscando: Material - ${materialCode}, Colada - ${batchNumber}`);
 
-    if (materialCode.length !== 11) {
-        alert('El código de material debe tener 11 dígitos.');
+    // Verificar que el código de material comience con '71' y tenga exactamente 11 dígitos
+    const materialCodePattern = /^71\d{9}$/;
+
+    if (!materialCodePattern.test(materialCode)) {
+        alert('El código de material debe comenzar con "71" y tener 11 dígitos.');
         return;
     }
 
@@ -34,7 +37,7 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
                 resultDiv.innerHTML = `<p>Ocurrió un error al buscar el certificado. Por favor, inténtalo de nuevo más tarde.</p>`;
             });
     } else {
-        // Si no se ingresa un número de colada, buscar todos los PDFs para el material
-        resultDiv.innerHTML = `<p>No se encontró un archivo JSON y no se puede generar la lista de coladas automáticamente.</p>`;
+        // Si no se ingresa un número de colada, mostrar un mensaje
+        resultDiv.innerHTML = `<p>Por favor, ingresa un número de colada para obtener el certificado.</p>`;
     }
 });
