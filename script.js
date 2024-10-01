@@ -22,6 +22,8 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
     if (batchNumber) {
         // Si se ingresa un número de colada, construir el nombre del archivo
         const pdfUrl = `${baseUrl}${materialCode}_${batchNumber}.pdf`;
+        
+        console.log(`Verificando archivo: ${pdfUrl}`);  // Para que puedas ver la URL en la consola del navegador
 
         // Verificar si el archivo existe y mostrar el enlace
         fetch(pdfUrl, { method: 'HEAD' })
