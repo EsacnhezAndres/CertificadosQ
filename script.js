@@ -19,15 +19,31 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
     // URL base de la carpeta en SharePoint
     const baseUrl = 'https://nealandmassyltd.sharepoint.com/sites/ProyectoEcopetrol/GOR/08_Certificados_de_Calidad/PDFS/';
 
-    // Suponemos que el usuario no sabe las coladas específicas, generaremos enlaces con combinaciones amplias
-    resultDiv.innerHTML = `<p>Archivos disponibles para el material ${materialCode}:</p><ul>`;
+    // Simulación de archivos disponibles en SharePoint
+    const archivosDisponibles = [
+        '71005068879_74860-09.pdf',
+        '71500055363_369542.pdf',
+        '71500055363_231738.pdf',
+        '71005068879_C125.pdf',
+        '71500161487_236532.pdf',
+        // Agrega más ejemplos según sea necesario
+    ];
 
-    // Generaremos dinámicamente algunos enlaces para ilustrar cómo sería si tuviéramos coladas infinitas
-    for (let i = 1; i <= 10; i++) { // Por ejemplo, generamos 10 posibles coladas
-        const colada = `Colada_${i}`; // Asumimos que cada colada tiene un nombre dinámico que podría ser cualquier cosa
-        const pdfUrl = `${baseUrl}${materialCode}_${colada}.pdf`;
-        resultDiv.innerHTML += `<li><a href="${pdfUrl}" target="_blank">Descargar Certificado PDF (${colada})</a></li>`;
+    // Filtrar solo los archivos que coincidan exactamente con el código de material ingresado
+    const archivosCoincidentes = archivosDisponibles.filter(archivo => archivo.startsWith(materialCode));
+
+    if (archivosCoincidentes.length > 0) {
+        resultDiv.innerHTML = `<p>Coladas disponibles para el material ${materialCode}:</p><ul>`;
+
+        archivosCoincidentes.forEach(archivo => {
+            // Extraer la parte que está después del guion bajo (la colada)
+            const colada = archivo.split('_')[1].replace('.pdf', ''); // Extraer colada
+            const pdfUrl = `${baseUrl}${archivo}`;
+            resultDiv.innerHTML += `<li><a href="${pdfUrl}" target="_blank">Descargar Certificado PDF (Colada: ${colada})</a></li>`;
+        });
+
+        resultDiv.innerHTML += '</ul>';
+    } else {
+        resultDiv.innerHTML = `<p>No se encontraron coladas disponibles para el material ${materialCode}.</p>`;
     }
-
-    resultDiv.innerHTML += '</ul>';
 });
