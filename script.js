@@ -23,8 +23,11 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
         // Si se ingresa un número de colada, construir el nombre del archivo
         const pdfUrl = `${baseUrl}${materialCode}_${batchNumber}.pdf`;
 
-        // Redirigir directamente al archivo PDF en SharePoint
+        // Mostrar el enlace al PDF
         resultDiv.innerHTML = `<a href="${pdfUrl}" target="_blank">Descargar Certificado PDF (${batchNumber})</a>`;
+        
+        // Intentar abrir el archivo PDF
+        window.location.href = pdfUrl;
     } else {
         resultDiv.innerHTML = `<p>Por favor, ingresa un número de colada para obtener el certificado.</p>`;
     }
