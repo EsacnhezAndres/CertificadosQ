@@ -1,50 +1,54 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
-}
-
+/* Estilo general para el contenedor */
 .container {
-    width: 100%;
-    max-width: 400px;
-    margin: 50px auto;
+    max-width: 600px;
+    margin: 0 auto;
     padding: 20px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-h1 {
     text-align: center;
-    color: #333;
+    font-family: Arial, sans-serif;
 }
 
+/* Estilo para el header donde va el logo */
+.header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+/* Estilo para el logo */
+.logo-container {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 150px; /* Puedes ajustar el tamaño del logo si es necesario */
+    height: auto;
+}
+
+/* Estilo para el formulario */
 form {
     display: flex;
     flex-direction: column;
-}
-
-label {
-    margin-top: 10px;
-    font-weight: bold;
+    align-items: center;
 }
 
 input {
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 button {
-    margin-top: 20px;
-    padding: 10px;
+    padding: 10px 20px;
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
 }
 
 button:hover {
@@ -53,5 +57,5 @@ button:hover {
 
 #result {
     margin-top: 20px;
-    text-align: center;
+    font-size: 16px;
 }

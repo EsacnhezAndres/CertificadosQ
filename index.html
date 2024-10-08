@@ -7,14 +7,21 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="header">
+        <!-- Aquí añadimos el logo en la parte superior izquierda -->
+        <div class="logo-container">
+            <img src="images/massy_logo.png" alt="Massy Energy Logo" class="logo">
+        </div>
+    </div>
+
     <div class="container">
         <h1>Certificados de Calidad</h1>
         <form id="searchForm">
             <label for="materialCode">Código de Material:</label>
-            <input type="text" id="materialCode" name="materialCode" required>
+            <input type="text" id="materialCode" placeholder="Ingrese el código de material" required>
             
             <label for="batchNumber">Número de Colada (opcional):</label>
-            <input type="text" id="batchNumber" name="batchNumber">
+            <input type="text" id="batchNumber" placeholder="Ingrese el número de colada">
             
             <button type="submit">Obtener Certificado</button>
         </form>
