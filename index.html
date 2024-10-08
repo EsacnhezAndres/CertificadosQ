@@ -7,22 +7,19 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="header">
-        <!-- Aquí añadimos el logo con la ruta correcta -->
-        <div class="logo-container">
-            <img src="Imagen/massy_logo.png" alt="Massy Energy Logo" class="logo">
-        </div>
-    </div>
+
+    <!-- Agregamos el logo en la parte superior -->
+    <header>
+        <img src="https://github.com/EsacnhezAndres/CertificadosQ/raw/main/Imagen/massy_logo.png" alt="Logo Massy" class="logo">
+    </header>
 
     <div class="container">
         <h1>Certificados de Calidad</h1>
         <form id="searchForm">
             <label for="materialCode">Código de Material:</label>
-            <input type="text" id="materialCode" placeholder="Ingrese el código de material" required>
-            
+            <input type="text" id="materialCode" required>
             <label for="batchNumber">Número de Colada (opcional):</label>
-            <input type="text" id="batchNumber" placeholder="Ingrese el número de colada">
-            
+            <input type="text" id="batchNumber">
             <button type="submit">Obtener Certificado</button>
         </form>
         <div id="result"></div>

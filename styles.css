@@ -1,60 +1,52 @@
-/* Estilo general para el contenedor */
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
+/* Mantener el estilo existente */
+body {
     font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
 }
 
-/* Estilo para el header donde va el logo */
-.header {
-    display: flex;
-    justify-content: flex-start;
-    padding: 10px;
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
-/* Estilo para el logo */
-.logo-container {
+/* Nuevo estilo para el logo */
+header {
     text-align: left;
-    margin-bottom: 20px;
+    padding: 10px;
 }
 
 .logo {
-    width: 150px;
-    height: auto;
+    width: 150px; /* Ajusta el tamaño del logo según sea necesario */
 }
 
-/* Estilo para el formulario */
+/* Mantener los estilos existentes */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
 form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agrega la sombra para darle profundidad */
-    border-radius: 8px; /* Bordes redondeados */
-    margin-top: 20px;
-    max-width: 400px;
-    width: 100%;
 }
 
-input {
+input, button {
+    margin-bottom: 10px;
     padding: 10px;
-    margin: 10px 0;
-    width: 100%;
+    font-size: 16px;
+    border-radius: 4px;
     border: 1px solid #ccc;
-    border-radius: 5px;
 }
 
 button {
-    padding: 10px 20px;
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
 }
 
 button:hover {
@@ -63,12 +55,5 @@ button:hover {
 
 #result {
     margin-top: 20px;
-    font-size: 16px;
-}
-
-/* Agregamos un fondo claro para dar contraste */
-body {
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+    text-align: center;
 }
