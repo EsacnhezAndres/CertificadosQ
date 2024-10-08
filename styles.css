@@ -21,7 +21,7 @@
 }
 
 .logo {
-    width: 150px; /* Puedes ajustar el tamaño del logo si es necesario */
+    width: 150px;
     height: auto;
 }
 
@@ -30,13 +30,19 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agrega la sombra para darle profundidad */
+    border-radius: 8px; /* Bordes redondeados */
+    margin-top: 20px;
+    max-width: 400px;
+    width: 100%;
 }
 
 input {
     padding: 10px;
     margin: 10px 0;
-    width: 80%;
-    max-width: 400px;
+    width: 100%;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -58,4 +64,11 @@ button:hover {
 #result {
     margin-top: 20px;
     font-size: 16px;
+}
+
+/* Agregamos un fondo claro para dar contraste */
+body {
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
